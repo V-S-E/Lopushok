@@ -14,7 +14,7 @@ namespace WpfApp1.Model
         public string FullImagePath
         { get { return string.IsNullOrEmpty(Image) ? null : String.Concat(Environment.CurrentDirectory, Image); } }
 
-        public decimal? Cost => ProductMaterial.Sum(x => x.Material.Cost * (decimal)x.Count);
+        public decimal? Cost { get => ProductMaterial.Sum(x => x.Material.Cost * (decimal)x.Count); set { OnPropertyChanged(); } }
 
         // ВАЛИДАЦИЯ
         public string this[string columnName] 
@@ -34,7 +34,7 @@ namespace WpfApp1.Model
         private void initValidation()
         {
             _validList = new List<ValidClass>();
-            _validList.Add(new ValidClass { propertyName = nameof(Title), error_message="ашипка!!!", CheckDelegate = ()=> { return ProductionPersonCount is int; } });
+            _validList.Add(new ValidClass { propertyName = nameof(Title), error_message="ашипка!!!", CheckDelegate = () => { return ProductionPersonCount is int?; } });
         }
     }
 

@@ -57,12 +57,24 @@
                     <DockPanel>
                         <TextBlock Text="Наименование" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox Text="{Binding Path=Product.Title}"/>
+                        <TextBox>
+                            <Binding Path="Product.Title">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Артикул" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox Text="{Binding Path=Product.ArticleNumber, StringFormat=N}"/>
+                        <TextBox>
+                            <Binding Path="Product.ArticleNumber" StringFormat="N">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Тип продукта" DockPanel.Dock="Left"

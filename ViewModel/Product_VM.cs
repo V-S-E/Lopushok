@@ -33,11 +33,10 @@ namespace WpfApp1.ViewModel
         private LopushokEntities context;
         private Product _product;
         public Product Product { get { return _product; } set { _product = value; OnPropertyChanged(); } }
-
         public BindingList<ProductMaterial> Materials { get; set; }
         public List<ProductType> ProductTypes => context.ProductType.ToList();
         #endregion
-
+        
         #region Методы
         public bool AddMaterial(Material material)
         {
@@ -60,7 +59,7 @@ namespace WpfApp1.ViewModel
         {
             try
             {
-                context.ProductMaterial.Remove(productMaterial);
+                Product.ProductMaterial.Remove(productMaterial);
                 context.Entry(productMaterial).State = EntityState.Deleted;
                 return true;
             }
@@ -98,5 +97,10 @@ namespace WpfApp1.ViewModel
             }
         }
         #endregion
+
+        public string Errors()
+        {
+            return null;
+        }
     }
 }
