@@ -48,7 +48,6 @@ namespace WpfApp1.ViewModel
                 productMaterial.Count = 0;
                 Product.ProductMaterial.Add(productMaterial);
                 context.Entry(productMaterial).State = EntityState.Added;
-                OnPropertyChanged(nameof(Product));
                 return true;
             }
             catch
@@ -63,7 +62,6 @@ namespace WpfApp1.ViewModel
             {
                 context.ProductMaterial.Remove(productMaterial);
                 context.Entry(productMaterial).State = EntityState.Deleted;
-                OnPropertyChanged(nameof(Product));
                 return true;
             }
             catch
