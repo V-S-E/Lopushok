@@ -52,5 +52,10 @@ namespace WpfApp1.View.Pages
         {
             vm.DeleteMaterial((ProductMaterial)DG.SelectedItem);
         }
+
+        private void DG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            vm.OnPropertyChanged(nameof(vm.Product));
+        }
     }
 }

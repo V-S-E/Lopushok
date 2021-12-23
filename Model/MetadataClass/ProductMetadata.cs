@@ -14,7 +14,7 @@ namespace WpfApp1.Model.MetadataClass
         [Required]
         public int ID { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(5)]
         public string Title { get; set; }
         [Required]
         public decimal MinCostForAgent { get; set; }

@@ -17,8 +17,7 @@ namespace WpfApp1.Model
     {
         public int ProductID { get; set; }
         public int MaterialID { get; set; }
-        private Nullable<double> _count;
-        public Nullable<double> Count { get { return _count; } set { _count = value; OnPropertyChanged(); if (Product != null) Product.Cost=1; } }
+        public Nullable<double> Count { get; set; }
         public virtual Material Material { get; set; }
         public virtual Product Product { get; set; }
     }

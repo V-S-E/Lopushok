@@ -58,11 +58,23 @@
                         <TextBlock Text="Наименование" DockPanel.Dock="Left"
                                MinWidth="100"/>
                         <TextBox>
-                            <Binding Path="Product.Title">
+                            <Binding Path="Product.Title" ValidatesOnDataErrors="True">
                                 <Binding.ValidationRules>
                                     <DataErrorValidationRule/>
                                 </Binding.ValidationRules>
                             </Binding>
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
                         </TextBox>
                     </DockPanel>
                     <DockPanel>
@@ -124,7 +136,8 @@
                     <DataGrid ItemsSource="{Binding Path=Materials, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
-                              Name="DG">
+                              Name="DG"
+                              CellEditEnding="DG_CellEditEnding">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Наименование"
                                                 Binding="{Binding Path=Material.Title}"
