@@ -109,11 +109,10 @@
                     </Grid>
                     <TextBlock Text="{Binding Path=Product.Cost, UpdateSourceTrigger=PropertyChanged}"
                                DockPanel.Dock="Bottom"/>
-                    <DataGrid ItemsSource="{Binding Path=Materials}"
+                    <DataGrid ItemsSource="{Binding Path=Materials, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
-                              Name="DG"
-                              CellEditEnding="DG_CellEditEnding">
+                              Name="DG">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Наименование"
                                                 Binding="{Binding Path=Material.Title}"
