@@ -44,7 +44,8 @@
                             <TextBlock Text="Относительный путь:"/>
                             <DockPanel>
                                 <Button DockPanel.Dock="Right" Content="+" Width="25"/>
-                                <TextBox Text="{Binding Path=Product.Image}"/>
+                                <TextBox Text="{Binding Path=Product.Image
+                                                        , ValidatesOnDataErrors=True}"/>
                             </DockPanel>
                         </StackPanel>
                     </DockPanel>
@@ -57,35 +58,17 @@
                     <DockPanel>
                         <TextBlock Text="Наименование" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox>
-                            <Binding Path="Product.Title" ValidatesOnDataErrors="True">
-                                <Binding.ValidationRules>
-                                    <DataErrorValidationRule/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                            <TextBox.Style>
-                                <Style TargetType="TextBox">
-                                    <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="ToolTip"
-                Value="{Binding RelativeSource={RelativeSource Self},
-                    Path=(Validation.Errors)[0].ErrorContent}" />
-                                            <Setter Property="Foreground" Value="Red" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
+                        <TextBox Text="{Binding Path=Product.Title, ValidatesOnDataErrors=True, StringFormat='{}{0:N4}'}"/>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Артикул" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox>
-                            <Binding Path="Product.ArticleNumber" StringFormat="N">
-                                <Binding.ValidationRules>
-                                    <DataErrorValidationRule/>
-                                </Binding.ValidationRules>
-                            </Binding>
+                        <TextBox Text="{Binding Path=Product.ArticleNumber, StringFormat='N'
+                                              , ValidatesOnDataErrors=True}">
+                            <TextBox.ToolTip>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource Self}
+                                    ,Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </TextBox.ToolTip>
                         </TextBox>
                     </DockPanel>
                     <DockPanel>
@@ -98,12 +81,14 @@
                     <DockPanel>
                         <TextBlock Text="Мин.цена для агента" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox Text="{Binding Path=Product.MinCostForAgent, StringFormat=N2}"/>
+                        <TextBox Text="{Binding Path=Product.MinCostForAgent, StringFormat=N2
+                                                , ValidatesOnDataErrors=True}"/>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Кол-во человек для производства" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox Text="{Binding Path=Product.ProductionPersonCount, StringFormat=N0}"/>
+                        <TextBox Text="{Binding Path=Product.ProductionPersonCount, StringFormat=N0
+                                                , ValidatesOnDataErrors=True}"/>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Описание" DockPanel.Dock="Left"
@@ -131,7 +116,10 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </Grid>
-                    <TextBlock Text="{Binding Path=Product.Cost, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBlock Text="{Binding Path=Product.Cost, UpdateSourceTrigger=PropertyChanged
+                                              , StringFormat='{}Итоговая сумма:{0:N2}'}"
+                               FontSize="20"
+                               FontWeight="Bold"
                                DockPanel.Dock="Bottom"/>
                     <DataGrid ItemsSource="{Binding Path=Materials, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False"

@@ -44,8 +44,10 @@ namespace WpfApp1.View.Pages
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            vm.Save();
-            FrameNavigateClass.Back();
+            string saveResult = vm.Save();
+            if (string.IsNullOrEmpty(saveResult))
+                FrameNavigateClass.Back();
+            else MessageBox.Show(saveResult);
         }
 
         private void Delete_Material(object sender, RoutedEventArgs e)

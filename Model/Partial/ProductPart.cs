@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,42 +10,24 @@ using WpfApp1.Properties;
 
 namespace WpfApp1.Model
 {
-    public partial class Product : IDataErrorInfo
+    public partial class Product : ValidatorBase
     {
         public string FullImagePath
         { get { return string.IsNullOrEmpty(Image) ? null : String.Concat(Environment.CurrentDirectory, Image); } }
 
         public decimal? Cost => ProductMaterial.Sum(x => x.Material.Cost * (decimal)x.Count);
-
-        // ВАЛИДАЦИЯ
-        public string this[string columnName] 
-        {
-            get
-            {
-                foreach (var item in _validList)
-                {
-                    if (item.CheckDelegate()) return item.error_message;
-                }
-                return string.Empty;
-            }
-        }
-        public string Error => throw new NotImplementedException();
-        private List<ValidClass> _validList;
-        // Необходимо выполнить в конструкторе ->
-        private void initValidation()
-        {
-            _validList = new List<ValidClass>();
-            _validList.Add(new ValidClass { propertyName = nameof(Title), error_message="ашипка!!!", CheckDelegate = () => { return ProductionPersonCount is string; } });
-        }
     }
 
-     class ValidClass
+    public class ProductMetadata
     {
-        public delegate bool _chk();
-        public _chk CheckDelegate;
-        public string propertyName;
-        public string error_message;
-
+        [Required]
+        public int ID { get; set; }
+        [Required]
+        [StringLength(50)]
+        [DisplayFormat(ApplyFormatInEditMode=true,DataFormatString="{0:##-##}")]
+        public string Title { get; set; }
+        [Required]
+        [DisplayFormat(DataFormatString ="{0:N2}")]
+        public decimal MinCostForAgent { get; set; }
     }
-
 }

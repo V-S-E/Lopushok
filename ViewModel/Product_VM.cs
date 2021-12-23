@@ -70,16 +70,18 @@ namespace WpfApp1.ViewModel
 
         }
 
-        public bool Save()
+        public string Save()
         {
             try
             {
+                string errors = Product.Validation();
+                if (!string.IsNullOrEmpty(errors)) return errors;
                 context.SaveChanges();
-                return true;
+                return null;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                return ex.InnerException.InnerException.Message;
             }
         }
 

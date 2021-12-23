@@ -11,9 +11,11 @@ namespace WpfApp1.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using WpfApp1.Interfaces;
 
-    public partial class Product : Notify
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
@@ -21,10 +23,11 @@ namespace WpfApp1.Model
             this.ProductCostHistory = new HashSet<ProductCostHistory>();
             this.ProductMaterial = new HashSet<ProductMaterial>();
             this.ProductSale = new HashSet<ProductSale>();
-            this.initValidation();
+            TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Product), typeof(ProductMetadata)),typeof(Product));
         }
-    
+
         public int ID { get; set; }
+
         public string Title { get; set; }
         public Nullable<int> ProductTypeID { get; set; }
         public string ArticleNumber { get; set; }
@@ -32,8 +35,6 @@ namespace WpfApp1.Model
         public string Image { get; set; }
         public Nullable<int> ProductionPersonCount { get; set; }
         public Nullable<int> ProductionWorkshopNumber { get; set; }
-        //private decimal mcfa;
-        //public decimal MinCostForAgent { get { return mcfa; } set { mcfa = value; OnPropertyChanged(); } }
         public decimal MinCostForAgent { get; set; }
 
         public virtual ProductType ProductType { get; set; }
