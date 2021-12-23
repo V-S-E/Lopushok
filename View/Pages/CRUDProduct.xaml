@@ -1,0 +1,145 @@
+﻿<Page x:Class="WpfApp1.View.Pages.CRUDProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.View.Pages"
+      xmlns:s="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Редактирование продукта">
+
+    <Grid MaxWidth="700"
+          MaxHeight="800">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical"
+                        Margin="0 0 20 0">
+                    <StackPanel.Resources>
+                        <s:Int32 x:Key="WidthN">200</s:Int32>
+                        <Style TargetType="DockPanel">
+                            <Setter Property="Margin" Value="0 0 0 5"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <DockPanel>
+                        <Grid Width="200" DockPanel.Dock="Left">
+                            <TextBlock Text="--нет изображения ☹--"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                            <Image Source="{Binding Path=Product.FullImagePath, TargetNullValue={x:Null}}"
+                               Name="img"/>
+
+                        </Grid>
+                        <!--Добавить триггер на надпись "нет изображения"-->
+                        <StackPanel>
+                            <TextBlock Text="Относительный путь:"/>
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right" Content="+" Width="25"/>
+                                <TextBox Text="{Binding Path=Product.Image}"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="ID" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <TextBox Text="{Binding Path=Product.ID}"
+                             IsReadOnly="True"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="Наименование" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <TextBox Text="{Binding Path=Product.Title}"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="Артикул" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <TextBox Text="{Binding Path=Product.ArticleNumber, StringFormat=N}"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="Тип продукта" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <ComboBox ItemsSource="{Binding Path=ProductTypes}"
+                              SelectedItem="{Binding Path=Product.ProductType}"
+                              DisplayMemberPath="Title"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="Мин.цена для агента" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <TextBox Text="{Binding Path=Product.MinCostForAgent, StringFormat=N2}"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="Кол-во человек для производства" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <TextBox Text="{Binding Path=Product.ProductionPersonCount, StringFormat=N0}"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock Text="Описание" DockPanel.Dock="Left"
+                               MinWidth="100"/>
+                        <TextBox Text="{Binding Path=Product.Description}"
+                             Height="200"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Visible"/>
+                    </DockPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Column="1">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Height="25">
+                        <DockPanel HorizontalAlignment="Right">
+                            <Button DockPanel.Dock="Right" Width="25"
+                                    Content="-"
+                                    Click="Delete_Material"/>
+                            <Button DockPanel.Dock="Right" Width="25"
+                                    Content="+"
+                                    Click="Add_Material"/>
+                        </DockPanel>
+                        <TextBlock Text="Материалы" FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                    <TextBlock Text="{Binding Path=Product.Cost, UpdateSourceTrigger=PropertyChanged}"
+                               DockPanel.Dock="Bottom"/>
+                    <DataGrid ItemsSource="{Binding Path=Materials}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              Name="DG"
+                              CellEditEnding="DG_CellEditEnding">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Наименование"
+                                                Binding="{Binding Path=Material.Title}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Количество"
+                                                Binding="{Binding Path=Count, StringFormat=N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Width="300" Margin="0 5 0 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Content="Сохранить"
+                    Click="Save_Click"/>
+            <Button Grid.Column="2"
+                    Content="Отменить"/>
+            <Button Grid.Column="4"
+                    Content="Удалить"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,61 @@
+﻿<Window x:Class="WpfApp1.View.Menu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{Binding ElementName=MainFrame,
+                        Path=Content.Title,
+                        StringFormat='Лопушок - {0}'}" Height="450" Width="800"
+        MinHeight="450"
+        MinWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Border BorderThickness="0,1,0,1"
+                        BorderBrush="Black"
+                        Background="{StaticResource LG_Breeze}"/>
+                <TextBlock Text="{Binding ElementName=MainFrame, Path=Content.Title}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+                <DockPanel
+                    VerticalAlignment="Center"
+                    Margin="5">
+                    <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Left">
+                        <Image Source="/Resources/1.png"
+                               ToolTip="Хорошо,что ты не лопух..."
+                               Margin="5"/>
+                        <TextBlock TextWrapping="Wrap"
+                                   VerticalAlignment="Center">
+                            <Run>Компания</Run>
+                            <LineBreak/>
+                            <Run FontSize="20"
+                                 FontWeight="Bold">Лопушок</Run>
+                        </TextBlock>
+                    </StackPanel>
+                    <Button Content="Назад"
+                            Width="75"
+                            Height="25"
+                            DockPanel.Dock="Right"
+                            Click="ClickBack"/>
+                    <Grid/>
+
+                </DockPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Frame NavigationUIVisibility="Hidden"
+                       Name="MainFrame"/>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</Window>

@@ -1,0 +1,153 @@
+﻿<Page x:Class="WpfApp1.View.Pages.ProductList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:conv="clr-namespace:WpfApp1.View.Converters"
+      xmlns:el="clr-namespace:WpfApp1.View.Elements"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Продукция компании"
+      KeepAlive="False">
+    <Page.Resources>
+        <conv:StringMaterialsConverter x:Key="MaterialConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <ComboBox DockPanel.Dock="Right"
+                      Width="200"
+                      ItemsSource="{Binding Path=ListType}"
+                      SelectedItem="{Binding Path=SelectedType,
+                      UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Title"
+                      ItemStringFormat="{}Тип: {0}"/>
+            <ComboBox DockPanel.Dock="Right"
+                      Width="200"
+                      ItemsSource="{Binding Path=SortList}"
+                      DisplayMemberPath="Name"
+                      ItemStringFormat="{}Сортировка: {0}"
+                      SelectedItem="{Binding Path=SelectedSort}"/>
+            <Grid>
+                <TextBox x:Name="searchBox" Text="{Binding Path=SearchText,
+                     UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center"/>
+                <TextBlock Text="Введите для поиска"
+                         Foreground="Gray"
+                         IsHitTestVisible="False"
+                         VerticalAlignment="Center"
+                           Margin="5,0,0,0">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=searchBox}"
+                                             Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </DockPanel>
+
+        <Grid Grid.Row="1">
+            <ListView ItemsSource="{Binding Path=ProductList}"
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      Name="LV"
+                      MouseDoubleClick="LV_MouseDoubleClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border BorderThickness="1"
+                                    BorderBrush="Black"
+                                    CornerRadius="5"/>
+                            <DockPanel Margin="10">
+                                <Image DockPanel.Dock="Left"
+                                       Width="100"
+                                       Source="{Binding Path=FullImagePath,
+                                       TargetNullValue={StaticResource DefaultPicture}}"
+                                       Margin="5">
+                                    <Image.ToolTip>
+                                        <ToolTip>
+                                            <Image Width="300"
+                                                   Source="{Binding Path=FullImagePath,
+                                       TargetNullValue={StaticResource DefaultPicture}}"/>
+                                        </ToolTip>
+                                    </Image.ToolTip>
+                                </Image>
+                                <DockPanel DockPanel.Dock="Left">
+                                    <TextBlock DockPanel.Dock="Top">
+                                        <Run Text="{Binding Path=ProductType.Title}"/>
+                                        <Run Text=" | "/>
+                                        <Run Text="{Binding Path=Title}"
+                                             FontWeight="Bold"
+                                             Foreground="{StaticResource SC_Accent}"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding Path=ArticleNumber}"/>
+                                    </TextBlock>
+                                    <TextBlock DockPanel.Dock="Bottom"
+                                               Width="500"
+                                               TextWrapping="Wrap">
+                                        <Run Text="Материалы: " FontWeight="Bold"/>
+                                        <Run Text="{Binding Path=ProductMaterial,
+                                             Converter={StaticResource MaterialConverter}}"/>
+                                    </TextBlock>
+                                    <Grid/>
+                                </DockPanel>
+                                <TextBlock DockPanel.Dock="Right"
+                                           Text="{Binding Path=Cost, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Grid/>
+                            </DockPanel>
+
+                            <!-- Тот же результат можно достичь следующим примером
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} | {1}">
+                                            <Binding Path="ProductType.Title"/>
+                                            <Binding Path="Title"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Path=ArticleNumber}"/>-->
+                            <!-- Список материалов так же можно отобразить через ItemsControl
+                                <ItemsControl ItemsSource="{Binding Path=ProductMaterial}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=Material.Title}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>-->
+                            
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <ContextMenu.Items>
+                            <MenuItem Header="Изменить минимальную стоимость для агента" Click="EditPrice"/>
+                        </ContextMenu.Items>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <DockPanel Width="150"
+                       HorizontalAlignment="Right">
+                <el:PageSwitch PageSep="{Binding PageS}"
+                               SelectedPage="{Binding SelectPage, Mode=TwoWay}"/>
+            </DockPanel>
+            <Button Content=" Добавить " HorizontalAlignment="Left"
+                    Click="Button_Click"/>
+        </Grid>
+    </Grid>
+</Page>
