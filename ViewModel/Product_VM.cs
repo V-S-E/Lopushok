@@ -36,6 +36,7 @@ namespace WpfApp1.ViewModel
             Materials = context.ProductMaterial.Local.ToBindingList();
         }
         #endregion
+
         #region Поля и свойства
         private LopushokEntities context;
         private Product _product;
@@ -43,7 +44,7 @@ namespace WpfApp1.ViewModel
         public BindingList<ProductMaterial> Materials { get; set; }
         public List<ProductType> ProductTypes => context.ProductType.ToList();
         #endregion
-        
+      
         #region Методы
         public bool AddMaterial(Material material)
         {

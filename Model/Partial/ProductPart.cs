@@ -28,5 +28,8 @@ namespace WpfApp1.Model
         [Required]
         [DisplayFormat(DataFormatString ="{0:N2}")]
         public decimal MinCostForAgent { get; set; }
+        public string Image { get; set; }
+        [Required]
+        public string ArticleNumber { get; set; }
     }
 }
