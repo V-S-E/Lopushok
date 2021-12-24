@@ -58,7 +58,7 @@
                     <DockPanel>
                         <TextBlock Text="Наименование" DockPanel.Dock="Left"
                                MinWidth="100"/>
-                        <TextBox Text="{Binding Path=Product.Title, ValidatesOnDataErrors=True, StringFormat='{}{0:N4}'}"/>
+                        <TextBox Text="{Binding Path=Product.Title, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Артикул" DockPanel.Dock="Left"
@@ -82,7 +82,7 @@
                         <TextBlock Text="Мин.цена для агента" DockPanel.Dock="Left"
                                MinWidth="100"/>
                         <TextBox Text="{Binding Path=Product.MinCostForAgent, StringFormat=N2
-                                                , ValidatesOnDataErrors=True}"/>
+                                                , ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </DockPanel>
                     <DockPanel>
                         <TextBlock Text="Кол-во человек для производства" DockPanel.Dock="Left"
@@ -149,9 +149,11 @@
                     Content="Сохранить"
                     Click="Save_Click"/>
             <Button Grid.Column="2"
-                    Content="Отменить"/>
+                    Content="Отменить"
+                    Click="Cancel_Click"/>
             <Button Grid.Column="4"
-                    Content="Удалить"/>
+                    Content="Удалить"
+                    Click="Delete_Click"/>
         </Grid>
     </Grid>
 </Page>

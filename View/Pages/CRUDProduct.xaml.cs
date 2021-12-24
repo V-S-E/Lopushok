@@ -47,7 +47,7 @@ namespace WpfApp1.View.Pages
             string saveResult = vm.Save();
             if (string.IsNullOrEmpty(saveResult))
                 FrameNavigateClass.Back();
-            else MessageBox.Show(saveResult);
+            else MessageBox.Show(saveResult, "Ошибка сохранения");
         }
 
         private void Delete_Material(object sender, RoutedEventArgs e)
@@ -58,6 +58,18 @@ namespace WpfApp1.View.Pages
         private void DG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             vm.OnPropertyChanged(nameof(vm.Product));
+        }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mr = MessageBox.Show("Отменить изменения в записи?","Оповещение",MessageBoxButton.YesNo);
+            if (mr == MessageBoxResult.Yes) vm.Build();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mr = MessageBox.Show("Удалить запись?", "Оповещение", MessageBoxButton.YesNo);
+            if (mr == MessageBoxResult.Yes) vm.Delete();
+            FrameNavigateClass.Back();
         }
     }
 }

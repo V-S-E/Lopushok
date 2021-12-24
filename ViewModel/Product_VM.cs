@@ -14,13 +14,20 @@ namespace WpfApp1.ViewModel
 {
     public class Product_VM : Notify
     {
+        #region Конструктор и обновление объекта
         public Product_VM(Product p = null)
         {
+            Product = p;
+            Build();
+        }
+
+        public void Build()
+        {
             context = new LopushokEntities();
-            if (p != null)
+            if (Product != null)
             {
                 Product = context.Product.Include(x => x.ProductMaterial)
-                                     .First(y => y.ID == p.ID);
+                                     .First(y => y.ID == Product.ID);
             }
             else
             {
@@ -28,7 +35,7 @@ namespace WpfApp1.ViewModel
             }
             Materials = context.ProductMaterial.Local.ToBindingList();
         }
-
+        #endregion
         #region Поля и свойства
         private LopushokEntities context;
         private Product _product;
@@ -100,9 +107,5 @@ namespace WpfApp1.ViewModel
         }
         #endregion
 
-        public string Errors()
-        {
-            return null;
-        }
     }
 }

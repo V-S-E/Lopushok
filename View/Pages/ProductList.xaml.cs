@@ -48,7 +48,7 @@ namespace WpfApp1.View.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FrameNavigateClass.Go(new CRUDProduct(new Product_VM()));
+            FrameNavigateClass.Go(new CRUDProduct(new Product_VM()), UpdateList);
             
         }
 

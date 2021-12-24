@@ -24,7 +24,6 @@ namespace WpfApp1.Model
         public int ID { get; set; }
         [Required]
         [StringLength(50)]
-        [DisplayFormat(ApplyFormatInEditMode=true,DataFormatString="{0:##-##}")]
         public string Title { get; set; }
         [Required]
         [DisplayFormat(DataFormatString ="{0:N2}")]
