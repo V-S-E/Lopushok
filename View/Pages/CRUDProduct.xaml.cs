@@ -59,11 +59,6 @@ namespace WpfApp1.View.Pages
         {
             vm.OnPropertyChanged(nameof(vm.Product));
         }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult mr = MessageBox.Show("Отменить изменения в записи?","Оповещение",MessageBoxButton.YesNo);
-            if (mr == MessageBoxResult.Yes) vm.Build();
-        }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {

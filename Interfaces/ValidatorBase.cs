@@ -15,7 +15,15 @@ namespace WpfApp1.Interfaces
         {
             get
             {
-                if (string.IsNullOrEmpty(columnName))
+                if (String.IsNullOrEmpty(columnName)) throw new Exception("Свойство не указано");
+
+                string error = String.Empty;
+                foreach(var r in ValidList)
+                {
+                    if (r._name == columnName && r._check()) { error = r._message; break; }
+                }
+
+                /*if (string.IsNullOrEmpty(columnName))
                 {
                     throw new NotSupportedException("Имя свойства не указано");
                 }
@@ -27,16 +35,31 @@ namespace WpfApp1.Interfaces
                     var validationResult = results.First();
                     error = validationResult.ErrorMessage;
                 }
+                return error;*/
                 return error;
             }
         }
-        private object GetValue(string propertyName)
+
+        protected List<ValidItem> ValidList = new List<ValidItem>();
+
+        public string Validation()
+        {
+            StringBuilder errors = new StringBuilder();
+
+            foreach(var r in ValidList)
+            {
+                if (r._check()) errors.AppendLine(r._message);
+            }
+            return errors.ToString();
+        }
+
+        /*private object GetValue(string propertyName)
         {
             PropertyInfo property = GetType().GetProperty(propertyName);
             return property.GetValue(this);
-        }
+        }*/
         string IDataErrorInfo.Error => throw new NotSupportedException("IDataErrorInfo.Error is not supported, use IDataErrorInfo.this[propertyName] instead.");
-        public string Validation()
+        /*public string Validation()
         {
             string errors = string.Empty;
             var results = new List<ValidationResult>();
@@ -46,7 +69,16 @@ namespace WpfApp1.Interfaces
                 errors = string.Join("\n",results.Select(x=>x.ErrorMessage));
             }
             return errors;
-        }
+        }*/
 
+    }
+
+    public class ValidItem
+    {
+        public string _message;
+        public string _name;
+
+        public delegate bool check_d(object[] param = null);
+        public check_d _check;
     }
 }

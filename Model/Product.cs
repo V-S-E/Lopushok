@@ -23,7 +23,10 @@ namespace WpfApp1.Model
             this.ProductCostHistory = new HashSet<ProductCostHistory>();
             this.ProductMaterial = new HashSet<ProductMaterial>();
             this.ProductSale = new HashSet<ProductSale>();
-            TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Product), typeof(ProductMetadata)),typeof(Product));
+            InitialValidationList();
+            //TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Product)
+            //    , typeof(ProductMetadata))
+            //    , typeof(Product));
         }
 
         public int ID { get; set; }
