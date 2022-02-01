@@ -16,6 +16,7 @@ using WpfApp1.Interfaces;
 using WpfApp1.Model;
 using WpfApp1.View.ModalWindows;
 using WpfApp1.ViewModel;
+using Microsoft.Win32;
 
 namespace WpfApp1.View.Pages
 {
@@ -44,10 +45,17 @@ namespace WpfApp1.View.Pages
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            string saveResult = vm.Save();
-            if (string.IsNullOrEmpty(saveResult))
-                FrameNavigateClass.Back();
-            else MessageBox.Show(saveResult, "Ошибка сохранения");
+            var result = MessageBox.Show("Вы действительно хотите сохранить изменения?", "Сохранение", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                string saveResult = vm.Save();
+                if (string.IsNullOrEmpty(saveResult))
+                {
+                    MessageBox.Show("Данные успешно сохранены!");
+                    FrameNavigateClass.Back();
+                }
+                else MessageBox.Show(saveResult, "Ошибка сохранения");
+            }
         }
 
         private void Delete_Material(object sender, RoutedEventArgs e)
@@ -65,6 +73,27 @@ namespace WpfApp1.View.Pages
             MessageBoxResult mr = MessageBox.Show("Удалить запись?", "Оповещение", MessageBoxButton.YesNo);
             if (mr == MessageBoxResult.Yes) vm.Delete();
             FrameNavigateClass.Back();
+        }
+
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = Environment.CurrentDirectory+"\\products";
+            ofd.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            ofd.Multiselect = false;
+            if (ofd.ShowDialog() == false || !ofd.FileName.Contains(Environment.CurrentDirectory))
+            {
+                MessageBox.Show("Выбрана другая директория");
+            }
+            else
+            {
+                vm.SetImageFolder(ofd.FileName.Replace(Environment.CurrentDirectory,""));
+            }
+        }
+
+        private void ClearImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SetImageFolder(String.Empty);
         }
     }
 }

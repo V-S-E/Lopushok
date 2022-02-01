@@ -64,12 +64,16 @@
                       VerticalContentAlignment="Stretch"
                       Name="LV"
                       MouseDoubleClick="LV_MouseDoubleClick">
+                <ListView.ToolTip>
+                    <TextBlock>Выполните двойной клик для просмотра.</TextBlock>
+                </ListView.ToolTip>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Border BorderThickness="1"
                                     BorderBrush="Black"
                                     CornerRadius="5"/>
+                            
                             <DockPanel Margin="10">
                                 <Image DockPanel.Dock="Left"
                                        Width="100"

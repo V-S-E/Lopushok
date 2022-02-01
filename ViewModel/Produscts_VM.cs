@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,7 +88,7 @@ namespace WpfApp1.ViewModel
         }
 
         public List<Product> ProductList => context.Product
-                .Where(x => x.Title.StartsWith(SearchText)
+                .Where(x => x.Title.Contains(SearchText)// SqlFunctions.PatIndex("%"+SearchText.ToLower()+"%",x.Title.ToLower())>0
                 && (SelectedType.ID == 0) || x.ProductTypeID == SelectedType.ID)
                 .OrderByWith(SelectedSort)
                 .AsNoTracking()

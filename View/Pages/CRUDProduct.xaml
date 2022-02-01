@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -30,25 +31,50 @@
                             <Setter Property="Margin" Value="0 0 0 5"/>
                         </Style>
                     </StackPanel.Resources>
-                    <DockPanel>
-                        <Grid Width="200" DockPanel.Dock="Left">
-                            <TextBlock Text="--нет изображения ☹--"
+                    <Grid Margin="0 0 0 10">
+                        <Border>
+                            <Border.Background>
+                                <SolidColorBrush Color="AliceBlue"/>
+                            </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10"
+                                                  Color="Black"
+                                                  ShadowDepth="0"
+                                                  RenderingBias="Quality"/>
+                            </Border.Effect>
+                        </Border>
+                        <DockPanel Margin="10">
+                            <TextBlock DockPanel.Dock="Top"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center"
+                                       TextDecorations="Underline">
+                                Изображение
+                            </TextBlock>
+                            <Grid Width="200" DockPanel.Dock="Top">
+                                <TextBlock Text="--нет изображения ☹--"
                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                            <Image Source="{Binding Path=Product.FullImagePath, TargetNullValue={x:Null}}"
+                                   VerticalAlignment="Center"
+                                       Foreground="Gray"/>
+                                <Image Source="{Binding Path=Product.FullImagePath, TargetNullValue={x:Null}}"
                                Name="img"/>
 
-                        </Grid>
-                        <!--Добавить триггер на надпись "нет изображения"-->
-                        <StackPanel>
-                            <TextBlock Text="Относительный путь:"/>
-                            <DockPanel>
-                                <Button DockPanel.Dock="Right" Content="+" Width="25"/>
-                                <TextBox Text="{Binding Path=Product.Image
-                                                        , ValidatesOnDataErrors=True}"/>
-                            </DockPanel>
-                        </StackPanel>
-                    </DockPanel>
+                            </Grid>
+                            <!--Добавить триггер на надпись "нет изображения"-->
+                            <StackPanel>
+                                <TextBlock Text="Относительный путь:"/>
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Content="-" Width="25"
+                                        Name="ClearImageButton" Click="ClearImageButton_Click"/>
+                                    <Button DockPanel.Dock="Right" Content="+" Width="25"
+                                        Name="ImageButton" Click="ImageButton_Click"/>
+                                    
+                                    <TextBox Text="{Binding Path=Product.Image
+                                                        , ValidatesOnDataErrors=True}"
+                                         IsReadOnly="True"/>
+                                </DockPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </Grid>
                     <DockPanel>
                         <TextBlock Text="ID" DockPanel.Dock="Left"
                                MinWidth="100"/>
@@ -71,7 +97,7 @@
                         <TextBlock Text="Тип продукта" DockPanel.Dock="Left"
                                MinWidth="100"/>
                         <ComboBox ItemsSource="{Binding Path=ProductTypes}"
-                              SelectedItem="{Binding Path=Product.ProductType}"
+                              SelectedItem="{Binding Path=Product.ProductType, ValidatesOnDataErrors=True}"
                               DisplayMemberPath="Title"/>
                     </DockPanel>
                     <DockPanel>
@@ -112,11 +138,6 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </Grid>
-                    <TextBlock Text="{Binding Path=Product.Cost, UpdateSourceTrigger=PropertyChanged
-                                              , StringFormat='{}Итоговая сумма:{0:N2}'}"
-                               FontSize="20"
-                               FontWeight="Bold"
-                               DockPanel.Dock="Bottom"/>
                     <DataGrid ItemsSource="{Binding Path=Materials, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
@@ -133,7 +154,15 @@
                 </DockPanel>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Width="300" Margin="0 5 0 5">
+        <TextBlock Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+            Text="{Binding Path=Product.Cost, UpdateSourceTrigger=PropertyChanged
+                                              , StringFormat='{}Итоговая сумма: {0:N2}'}"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               DockPanel.Dock="Bottom"/>
+        <Grid Grid.Row="2" Width="300" Margin="0 5 0 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="10"/>

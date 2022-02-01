@@ -45,7 +45,7 @@ namespace WpfApp1.ViewModel
         public List<ProductType> ProductTypes => context.ProductType.ToList();
         #endregion
       
-        #region Методы
+        #region Методы CRUD
         public bool AddMaterial(Material material)
         {
             try
@@ -105,6 +105,12 @@ namespace WpfApp1.ViewModel
             {
                 return false;
             }
+        }
+
+        public void SetImageFolder(string StringFolder)
+        {
+            Product.Image = StringFolder;
+            OnPropertyChanged(nameof(Product));
         }
         #endregion
 

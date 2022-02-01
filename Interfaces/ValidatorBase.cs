@@ -44,13 +44,14 @@ namespace WpfApp1.Interfaces
 
         public string Validation()
         {
-            StringBuilder errors = new StringBuilder();
+            //StringBuilder errors = new StringBuilder();
+            var errors = new List<string>();
 
             foreach(var r in ValidList)
             {
-                if (r._check()) errors.AppendLine(r._message);
+                if (r._check()) errors.Add(r._message);
             }
-            return errors.ToString();
+            return string.Join("\n\n",errors);
         }
 
         /*private object GetValue(string propertyName)

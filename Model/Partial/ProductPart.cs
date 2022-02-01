@@ -28,7 +28,7 @@ namespace WpfApp1.Model
                 _check = delegate
                 {
 
-                    if (Title.Length > 50
+                    if (Title is null || Title.Length > 50
                        || Title.Length < 5)
                         return true;
                     return false;
@@ -41,7 +41,7 @@ namespace WpfApp1.Model
                 _message = "Артикул должен быть числом.",
                 _check = delegate
                 {
-                    if (Regex.IsMatch(ArticleNumber,@"\D")) return true;
+                    if (ArticleNumber is null || Regex.IsMatch(ArticleNumber, @"\D")) return true;
                     return false;
                 }
             });
@@ -56,15 +56,37 @@ namespace WpfApp1.Model
                         return false;
                     }
                 });
+            ValidList.Add(
+                new ValidItem
+                {
+                    _name = "ProductType",
+                    _message = "Необходимо указать тип продукции.",
+                    _check = delegate
+                    {
+                        if (ProductType is null) return true;
+                        return false;
+                    }
+                });
+            ValidList.Add(
+                new ValidItem
+                {
+                    _name = "ProductionPersonCount",
+                    _message = "Количество человек для производства должно быть больше нуля.",
+                    _check = delegate
+                    {
+                        if (ProductionPersonCount is null || ProductionPersonCount <= 0) return true;
+                        return false;
+                    }
+                });
         }
     }
 
-        //public class ProductMetadata
-        //{
-        //    public int ID { get; set; }
-        //    public string Title { get; set; }
-        //    public decimal MinCostForAgent { get; set; }
-        //    public string Image { get; set; }
-        //    public string ArticleNumber { get; set; }
-        //}
-    }
+    //public class ProductMetadata
+    //{
+    //    public int ID { get; set; }
+    //    public string Title { get; set; }
+    //    public decimal MinCostForAgent { get; set; }
+    //    public string Image { get; set; }
+    //    public string ArticleNumber { get; set; }
+    //}
+}
