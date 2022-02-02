@@ -14,18 +14,25 @@ namespace WpfApp1.ViewModel
         public SelectMaterial_VM()
         {
             context = new LopushokEntities();
-            context.Configuration.LazyLoadingEnabled = false;
-            context.MaterialType.Load();
-            context.Material.Where(x=>x.Title.Contains("гр")).Load();
-
+            context.Database.Log = (s => System.Diagnostics.Debug.WriteLine(s));
+            _search = String.Empty;
         }
 
         #region Переменные и свойства
         private LopushokEntities context;
         private string _search;
         public string Search { get { return _search; } set { _search = value; OnPropertyChanged(); OnPropertyChanged(nameof(Materials)); } }
-        public List<MaterialType> Materials => context.MaterialType.Local.ToList();
+        public List<MaterialType> Materials => context.MaterialType
+            .AsNoTracking()
+            .AsEnumerable()
+            .Select(s => new MaterialType()
+            {
+                ID = s.ID,
+                Material = context.Material.AsNoTracking().Where(x => x.MaterialType.ID == s.ID && x.Title.Contains(Search)).ToList(),
+                Title = s.Title,
+            }).ToList();
         public Material Selected { get; set; }
+
         #endregion
     }
 }

@@ -94,7 +94,7 @@
                                         <Run Text=" | "/>
                                         <Run Text="{Binding Path=Title}"
                                              FontWeight="Bold"
-                                             Foreground="{StaticResource SC_Accent}"/>
+                                             Foreground="{StaticResource SC_Additional}"/>
                                         <LineBreak/>
                                         <Run Text="{Binding Path=ArticleNumber}"/>
                                     </TextBlock>

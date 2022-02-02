@@ -32,10 +32,7 @@
                         </Style>
                     </StackPanel.Resources>
                     <Grid Margin="0 0 0 10">
-                        <Border>
-                            <Border.Background>
-                                <SolidColorBrush Color="AliceBlue"/>
-                            </Border.Background>
+                        <Border Background="AliceBlue">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="10"
                                                   Color="Black"
@@ -63,10 +60,12 @@
                             <StackPanel>
                                 <TextBlock Text="Относительный путь:"/>
                                 <DockPanel>
-                                    <Button DockPanel.Dock="Right" Content="-" Width="25"
-                                        Name="ClearImageButton" Click="ClearImageButton_Click"/>
-                                    <Button DockPanel.Dock="Right" Content="+" Width="25"
-                                        Name="ImageButton" Click="ImageButton_Click"/>
+                                    <Button DockPanel.Dock="Right" Content="-" Width="20"
+                                        Name="ClearImageButton" Click="ClearImageButton_Click"
+                                            Style="{StaticResource RndBtn}"/>
+                                    <Button DockPanel.Dock="Right" Content="+" Width="20"
+                                        Name="ImageButton" Click="ImageButton_Click"
+                                            Style="{StaticResource RndBtn}"/>
                                     
                                     <TextBox Text="{Binding Path=Product.Image
                                                         , ValidatesOnDataErrors=True}"
@@ -129,10 +128,12 @@
                         <DockPanel HorizontalAlignment="Right">
                             <Button DockPanel.Dock="Right" Width="25"
                                     Content="-"
-                                    Click="Delete_Material"/>
+                                    Click="Delete_Material"
+                                    Style="{StaticResource RndBtn}"/>
                             <Button DockPanel.Dock="Right" Width="25"
                                     Content="+"
-                                    Click="Add_Material"/>
+                                    Click="Add_Material"
+                                    Style="{StaticResource RndBtn}"/>
                         </DockPanel>
                         <TextBlock Text="Материалы" FontWeight="Bold"
                                    HorizontalAlignment="Center"
@@ -146,7 +147,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Наименование"
                                                 Binding="{Binding Path=Material.Title}"
-                                                IsReadOnly="True"/>
+                                                IsReadOnly="True"
+                                                Width="2*"/>
                             <DataGridTextColumn Header="Количество"
                                                 Binding="{Binding Path=Count, StringFormat=N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>

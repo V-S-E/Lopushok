@@ -8,7 +8,6 @@
         Title="Выбор материала" Height="450" Width="800">
     <Grid>
         <DockPanel>
-            <!--Добавить Удалить Поиск ?Возможность отображения без выбора?-->
             <Grid DockPanel.Dock="Top">
                 <TextBlock Text="Материалы"
                        HorizontalAlignment="Center"
@@ -40,13 +39,25 @@
             </Grid>
             <TreeView ItemsSource="{Binding Path=Materials}"
                       SelectedValuePath="{Binding Path=Selected}"
-                      SelectedItemChanged="TreeView_SelectedItemChanged">
+                      SelectedItemChanged="TreeView_SelectedItemChanged"
+                      Name="TW">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=Material}">
-                        <TextBlock Text="{Binding Path=Title}"/>
+                        <DockPanel>
+                            <TextBlock Text="{}{ }" DockPanel.Dock="Left"/>
+                            <TextBlock Text="{Binding Path=Title}"/>
+                        </DockPanel>
                         <HierarchicalDataTemplate.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=Title}"/>
+                                <DockPanel>
+                                    <TextBlock Text="{}-" DockPanel.Dock="Left"/>
+                                    <TextBlock Text="{Binding Path=Title}"/>
+                                </DockPanel>
                             </DataTemplate>
                         </HierarchicalDataTemplate.ItemTemplate>
                     </HierarchicalDataTemplate>

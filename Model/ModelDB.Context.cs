@@ -16,7 +16,7 @@ namespace WpfApp1.Model
     public partial class LopushokEntities : DbContext
     {
         public LopushokEntities()
-            : base("name=LopushokEntities")
+            : base(String.Format(@"metadata = res://*/Model.ModelDB.csdl|res://*/Model.ModelDB.ssdl|res://*/Model.ModelDB.msl;provider=System.Data.SqlClient;provider connection string='{0}'", @"data source=(LocalDB)\MsSqlLocalDB;initial catalog=Lopushok;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"))
         {
         }
     

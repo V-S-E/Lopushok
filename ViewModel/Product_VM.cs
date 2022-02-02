@@ -48,19 +48,19 @@ namespace WpfApp1.ViewModel
         #region Методы CRUD
         public bool AddMaterial(Material material)
         {
-            try
-            {
+            //try
+            //{
                 var productMaterial = new ProductMaterial();
                 productMaterial.Material = material;
                 productMaterial.Count = 0;
                 Product.ProductMaterial.Add(productMaterial);
                 context.Entry(productMaterial).State = EntityState.Added;
                 return true;
-            }
-            catch
-            {
-                return false;
-            }
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
         public bool DeleteMaterial(ProductMaterial productMaterial)

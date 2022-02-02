@@ -6,9 +6,10 @@
         mc:Ignorable="d"
         Title="{Binding ElementName=MainFrame,
                         Path=Content.Title,
-                        StringFormat='Лопушок - {0}'}" Height="450" Width="800"
+                        StringFormat='W&amp;P - {0}'}" Height="450" Width="800"
         MinHeight="450"
-        MinWidth="800">
+        MinWidth="800"
+        RenderOptions.BitmapScalingMode="HighQuality">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -17,8 +18,8 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <Border BorderThickness="0,1,0,1"
-                        BorderBrush="Black"
+                <Border BorderThickness="0,0,0,7"
+                        BorderBrush="Gray"
                         Background="{StaticResource LG_Breeze}"/>
                 <TextBlock Text="{Binding ElementName=MainFrame, Path=Content.Title}"
                                HorizontalAlignment="Center"
@@ -30,15 +31,17 @@
                     Margin="5">
                     <StackPanel Orientation="Horizontal"
                                 DockPanel.Dock="Left">
-                        <Image Source="/Resources/1.png"
+                        <Image Source="/Resources/napkin.png"
                                ToolTip="Хорошо,что ты не лопух..."
-                               Margin="5"/>
+                               Margin="5" Height="50" Width="50"
+                               />
                         <TextBlock TextWrapping="Wrap"
-                                   VerticalAlignment="Center">
+                                   VerticalAlignment="Center"
+                                   FontFamily="/Resources/Fonts/#Comfortaa">
                             <Run>Компания</Run>
                             <LineBreak/>
-                            <Run FontSize="20"
-                                 FontWeight="Bold">Лопушок</Run>
+                            <Run FontSize="25"
+                                 FontWeight="Bold">White &amp; paper</Run>
                         </TextBlock>
                     </StackPanel>
                     <Button Content="Назад"

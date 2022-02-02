@@ -61,7 +61,7 @@ namespace WpfApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на \Resources.
+        ///   Ищет локализованную строку, похожую на \product.
         /// </summary>
         internal static string StandartImagePath {
             get {
