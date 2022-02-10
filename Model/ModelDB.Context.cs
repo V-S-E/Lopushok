@@ -15,8 +15,11 @@ namespace WpfApp1.Model
     
     public partial class LopushokEntities : DbContext
     {
+        const string tarn = @"metadata = res://*/Model.ModelDB.csdl|res://*/Model.ModelDB.ssdl|res://*/Model.ModelDB.msl;provider=System.Data.SqlClient;provider connection string='{0}'";
+        const string con1 = @"data source=(LocalDB)\MsSqlLocalDB;initial catalog=Lopushok;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
+        const string con2 = "data source=(LocalDB)\\MsSqlLocalDB; AttachDBFileName=\"E:\\ПроектЛопушка\\Vasileva_Lopushok\\Database\\Lopushok.mdf\";integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
         public LopushokEntities()
-            : base(String.Format(@"metadata = res://*/Model.ModelDB.csdl|res://*/Model.ModelDB.ssdl|res://*/Model.ModelDB.msl;provider=System.Data.SqlClient;provider connection string='{0}'", @"data source=(LocalDB)\MsSqlLocalDB;initial catalog=Lopushok;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"))
+            : base("name=LopushokEntities2")
         {
         }
     

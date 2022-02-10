@@ -27,8 +27,10 @@ namespace WpfApp1.ViewModel
                 new SortType<Product>(2, "По убыванию", (x)=>x.OrderByDescending(p=>p.Title)) };
 
             // Инициализация списка типов продукции
-            _listType = new List<ProductType>();
-            _listType.Add(new ProductType { ID = 0, Title = "--Нет--" });
+            _listType = new List<ProductType>
+            {
+                new ProductType { ID = 0, Title = "--Нет--" }
+            };
             _listType.AddRange(context.ProductType.AsNoTracking().ToList());
 
             // Инициализация базовой сортировки

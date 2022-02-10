@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\WSR2021\Desktop\Установщик\</PublishUrl>
+    <PublishUrl>C:\Users\PC\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -27,8 +27,9 @@
     <MapFileExtensions>false</MapFileExtensions>
     <ProductName>Lopushok_IT</ProductName>
     <PublisherName>ProC4 Studio</PublisherName>
+    <SuiteName>AAAAAAAA</SuiteName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -73,7 +74,10 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -256,7 +260,6 @@
     <Resource Include="Resources\Fonts\Comfortaa-Bold.ttf" />
     <Resource Include="Resources\Fonts\Comfortaa-Light.ttf" />
     <Resource Include="Resources\Fonts\Comfortaa-Regular.ttf" />
-    <None Include="WpfApp1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -279,7 +282,9 @@
       <LastGenOutput>ModelDB.cs</LastGenOutput>
     </Content>
     <Resource Include="Resources\napkin.png" />
-    <Resource Include="Смурфик.ico" />
+    <Resource Include="Смурфик.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\1.png" />
     <Resource Include="Resources\2.png" />
     <Resource Include="Resources\3.png" />

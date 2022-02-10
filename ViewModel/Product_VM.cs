@@ -50,10 +50,12 @@ namespace WpfApp1.ViewModel
         {
             //try
             //{
-                var productMaterial = new ProductMaterial();
-                productMaterial.Material = material;
-                productMaterial.Count = 0;
-                Product.ProductMaterial.Add(productMaterial);
+            var productMaterial = new ProductMaterial
+            {
+                Material = material,
+                Count = 0
+            };
+            Product.ProductMaterial.Add(productMaterial);
                 context.Entry(productMaterial).State = EntityState.Added;
                 return true;
             //}

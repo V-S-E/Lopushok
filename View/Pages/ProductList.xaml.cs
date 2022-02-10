@@ -37,10 +37,9 @@ namespace WpfApp1.View.Pages
             w.ShowDialog();
             if (w.IsUpdate == true && w.Price != 0)
             {
-                foreach (Product r in LV.SelectedItems)
-                {
-                    r.MinCostForAgent = w.Price;
-                }
+                var l = LV.SelectedItems.Cast<Product>().Select(x=>x.ID).ToArray();
+                var cnt = vm.Context.Product.Where(x=>l.Any(n=>n==x.ID)).ToList();
+                cnt.ForEach(x=>x.MinCostForAgent = w.Price);
                 vm.Context.SaveChanges();
                 vm.OnPropertyChanged("ProductList");
             }
